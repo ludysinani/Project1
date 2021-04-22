@@ -32,18 +32,25 @@ app.get('/immprocess', (req, res) => {
     let applicantChoice = req.query.choice
     switch (applicantChoice) {
         case 'student':
-            res.json(studyPermit)
+            res.send(`<html><body><blockquote><pre>${JSON.stringify(studyPermit, null, 2)}</pre></blockquote></body></html>`)
             //res.send("You will need a Study Permit")
             break
         case 'worker':
 
-            res.json(workPermit)
+            res.send(`<html><body><blockquote><pre>${JSON.stringify(workPermit, null, 2)}</pre></blockquote></body></html>`)
             //res.send("You will need a Work Permit")
             break
         //TODO: to add more cases 
         default:
 
-            res.send('Please make sure to chose from one of the available options')
+            res.send(`<html><body>Please make sure to chose from one of the available options
+            <ul> 
+            <li><a href="${urlPrefix}/immprocess?choice=student">student</a></li>
+            <li><a href="${urlPrefix}/immprocess?choice=worker">worker</a></li>
+            </ul>
+            
+            </body></html>`)
+
 
     }
 
