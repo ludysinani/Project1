@@ -2,8 +2,11 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 5000
+const host = process.env.HOST || 'localhost'
+let urlPrefix = `http://${host}:${port}`
+
 app.use(function (req, res, next) {
-    res.header('Content-Type', 'application/json');
+    res.header('Content-Type', 'text/html');
     next();
 });
 
@@ -40,7 +43,7 @@ app.get('/immprocess', (req, res) => {
         //TODO: to add more cases 
         default:
 
-            res.send('Please make sure to chose from one of the above options')
+            res.send('Please make sure to chose from one of the available options')
 
     }
 
@@ -48,12 +51,13 @@ app.get('/immprocess', (req, res) => {
 
 
 })
+
 app.get('/', (req, res) => {
     console.log(req)
-    res.send('Hello please use  /play to play a game!')
+    res.send(`<html><body>Hello please select the <a href="${urlPrefix}/immprocess"> immigration process</a> are you interested in</body></html>`)
 
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at ${urlPrefix}`)
 })
